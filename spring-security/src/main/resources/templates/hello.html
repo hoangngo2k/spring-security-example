@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Hello World!</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name"></span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log Out"/>
+</form>
+<div class="mt-2">
+    <a th:href="@{/files}">Upload file -></a>
+</div>
+</body>
+</html>
