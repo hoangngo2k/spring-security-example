@@ -1,6 +1,7 @@
 package com.example.springsecurity.controller;
 
 import com.example.springsecurity.error.StorageFileNotFoundException;
+import com.example.springsecurity.mapper.CSVFileMapper;
 import com.example.springsecurity.service.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,9 +20,11 @@ import java.io.IOException;
 public class FileUploadController {
 
     private final StorageService storageService;
+//    private final CSVFileMapper csvFileMapper;
 
-    public FileUploadController(StorageService storageService) {
+    public FileUploadController(StorageService storageService, CSVFileMapper csvFileMapper) {
         this.storageService = storageService;
+//        this.csvFileMapper = csvFileMapper;
     }
 
     @GetMapping("/files")
@@ -30,6 +33,8 @@ public class FileUploadController {
                 .map(path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                                 "serveFile", path.getFileName().toString()).build().toString())
                 .toList());
+        storageService.loadFileFromDatabase();
+//        csvFileMapper.saveCsvFile("src/main/resources/files/users.csv");
         return new ModelAndView("uploadForm");
     }
 
